@@ -77,7 +77,6 @@ public class JedisIndex {
 	 * @return Map from URL to count.
 	 */
 	public Map<String, Integer> getCounts(String term) {
-        // FILL THIS IN!
         Set<String> urls = getURLs(term); 
         Map<String, Integer> map = new HashMap<String, Integer>(urls.size()); 
         
@@ -115,7 +114,6 @@ public class JedisIndex {
 		// for each term in the TermCounter, add the TermCounter to the index
 		Transaction t = jedis.multi();
 		for (String term: tc.keySet()) {
-			// TODO: check if already indexed
 			t.sadd(urlSetKey(term), url); 
 			t.hset(termCounterKey(url), term, Integer.toString(tc.get(term)));  
 		}
