@@ -113,10 +113,13 @@ public class JedisIndex {
 		
 		// for each term in the TermCounter, add the TermCounter to the index
 		Transaction t = jedis.multi();
+		t.del(termCounterKey(url)); 
+		
 		for (String term: tc.keySet()) {
 			t.sadd(urlSetKey(term), url); 
 			t.hset(termCounterKey(url), term, Integer.toString(tc.get(term)));  
 		}
+		
 		t.exec(); 
 	}
 
